@@ -131,7 +131,7 @@ CREATE TABLE VOL
     date_vol DATE,
     duree_vol TIME,
     distance_vol DECIMAL(10,2),
-    --etat est soit att/vol/arrive/suppr
+    -- etat est soit att/vol/arrive/suppr
     etat_vol VARCHAR(5),
     id_ville_provenir INT NOT NULL,
     id_ville_destiner INT NOT NULL,
