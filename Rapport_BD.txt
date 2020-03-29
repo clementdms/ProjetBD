@@ -1,0 +1,48 @@
+Début du Rapport final 
+-------------------------------------------A mettre Dans le Rapport----------------------------------------------------------------------------
+1. Rappel objectif projet ainsi que l'organisation du document 
+2. Indiquer les modifications appliquées sur le schéma conceptuel et/ou relationnel depuis le rapport intermédiaire.
+3. Une brève description de l'état d'avancement du projet (fonctionnalités réalisées et non réalisées), 
+	les principes des solutions proposées, la raison de non réalisation de certaines étapes si tel est le cas. 
+4. La gestion de projet et le travail en groupe seront également décrits.
+-------------------------------------------Dans le code-------------------------------------------------------------------------------
+5. Expliciter les opérations de l'application (explications, code commenté, protocoles de tests).
+6. Fournir le code de l'application
+7. L'archive nommée GRXX sera composé d'un répertoire src pour le code, doc pour la documentation Javadoc et un fichier rapport.pdf 
+--------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------Sommaire-----------------------------------------------------------------------------------
+I/- Introduction
+II/- Modification depuis le rapport intermédiaire 
+III/- Fonctionnalités de l'application 
+IV/- Gestion de projet et travail en groupe
+--------------------------------------------------------------------------------------------------------------------------------------
+
+I/- Introduction 
+L'objectif de se projet été de mettre en oeuvre les notions vu en cour par la réalisation d'une applaication Java suivant le protocole JDBC.
+Le but de cette application et de pouvoir plannifier et gérer les réservation d'un compagnie aérienne.
+Pour les technologies utilisées voilà comment nous avons procédés : 
+	Au niveau de l'application, nous avons utilisé Java et JDBC.
+	Pour la partie base de données, nous avons coder en local sur nos pc et ainsi utilisé du SQL, PL/SQL.
+	
+Pour l'architecture logicielle de l'application, nous nous sommes basés sur le patron DAO.
+II/- Modification depuis le rapport intermédiaire
+Changement du MCD,
+Changement de la BD,
+
+III/- Fonctionnalités de l'application
+Notre appliaction est capable de ...
+
+IV/- Gestion de projet et travail en groupe
+Du fait du confinement, nous avons commencer par créer un git.
+De plus, nous communiquions grâce au serveur discord.
+Ainsi les quatres membres du groupes pouvés avoir accès à l'avancement en temps réels.
+
+Au niveau de la gestion de projet : 
+
+Au niveau du travail en groupe : 
+Répartition du travail, chacun d'entre nous les fonctionnalités de l'appli après répartition des tâches.
+Ensuite, nous procédions à une mise en communs. Ainsi, chaque explique ce qu'il a apporté a l'appli au reste de l'équipe.
+
+
+
