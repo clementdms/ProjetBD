@@ -121,7 +121,9 @@ CREATE TABLE RESERVATION
 (
     id_reservation INT,
     date_reservation DATE,
-    CONSTRAINT pk_reservation PRIMARY KEY (id_reservation)
+    id_client INT NOT NULL,
+    CONSTRAINT pk_reservation PRIMARY KEY (id_reservation),
+    CONSTRAINT fk_reservation_client FOREIGN KEY (id_client) REFERENCES CLIENT(id_client)
 );
 
 CREATE TABLE VOL
@@ -195,7 +197,7 @@ CREATE TABLE RESERVE
     CONSTRAINT pk_reserve PRIMARY KEY (numero_place, numero_vol, id_reservation),
     CONSTRAINT fk_reserve_place FOREIGN KEY (numero_place) REFERENCES PLACE(numero_place),
     CONSTRAINT fk_reserve_vol FOREIGN KEY (numero_vol) REFERENCES VOL(numero_vol),
-    CONSTRAINT fk_reserve_reservation FOREIGN KEY (id_reservation) REFERENCES RESERVATION(id_reservation)
+    CONSTRAINT fk_reserve_reservation FOREIGN KEY (id_reservation) REFERENCES RESERVATION(id_reservation) ON DELETE CASCADE
 );
 
 
@@ -237,67 +239,104 @@ INSERT INTO PILOTE (id_pilote, nom_pilote, prenom_pilote, numeroRue_pilote, rue_
 INSERT INTO PILOTE (id_pilote, nom_pilote, prenom_pilote, numeroRue_pilote, rue_pilote, code_postal_pilote, ville_pilote, pays_pilote) VALUES ('4', 'Diallo','Mohammed','35', 'Chemin de la Guinée','38400','Echirolles','France');
 
 -- On insere les données pour Modèle Avion
-INSERT INTO MODELE_AVION (code_modele_avion, distancemax_avion, nbpilote_avion) VALUES ('A380', '25.5', '2');
+INSERT INTO MODELE_AVION (code_modele_avion, distancemax_avion, nbpilote_avion) VALUES ('A310', '25.5', '2');
 INSERT INTO MODELE_AVION (code_modele_avion, distancemax_avion, nbpilote_avion) VALUES ('A320', '35', '3');
-INSERT INTO MODELE_AVION (code_modele_avion, distancemax_avion, nbpilote_avion) VALUES ('MIAGE2020', '500', '1');
+INSERT INTO MODELE_AVION (code_modele_avion, distancemax_avion, nbpilote_avion) VALUES ('A380', '500', '1');
 
 -- On insere les données pour Qualifier
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('1', 'A380');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('1', 'A310');
 INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('1', 'A320');
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('1', 'MIAGE2020');
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('2', 'A380');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('1', 'A380');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('2', 'A310');
 INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('2', 'A320');
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('2', 'MIAGE2020');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('2', 'A380');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('3', 'A310');
 INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('3', 'A320');
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('3', 'MIAGE2020');
-INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('4', 'MIAGE2020');
+INSERT INTO QUALIFIER (id_pilote, code_modele_avion) VALUES ('4', 'A310');
 
 -- On insere les données pour Avion
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('1', 'A380');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('2', 'A380');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('3', 'A380');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('4', 'MIAGE2020');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('5', 'MIAGE2020');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('6', 'MIAGE2020');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('7', 'MIAGE2020');
-INSERT INTO AVION (numero_avion, code_modele_avion) VALUES ('8', 'A320');
-
-
--- On insere les données pour Client
-INSERT INTO CLIENT (id_client, nom_client, prenom_client, numeroRue_client, rue_client, code_postal_client, ville_client, pays_client, numeropassport_client) VALUES ('1', 'Jouannot' , 'Fabrice', '16', 'Rue Im2ag', '38400', 'Saint Martin d Hères', 'France', '1215415121');
-
--- On insere les données pour Reservation
-INSERT INTO RESERVATION (id_reservation, date_reservation) VALUES ('1', '2020-03-04');
-INSERT INTO RESERVATION (id_reservation, date_reservation) VALUES ('2', '2020-12-24');
-INSERT INTO RESERVATION (id_reservation, date_reservation) VALUES ('3', '2020-06-04');
-
--- On insere les données pour Vol
-INSERT INTO VOL (numero_vol, horaire_vol, date_vol,duree_vol, distance_vol, etat_vol, id_ville_provenir, id_ville_destiner, numero_avion) VALUES ('1', '12:59:35', '2020-05-15', '01:45:00' , '50', 'att', '1', '4', '2');
-INSERT INTO VOL (numero_vol, horaire_vol, date_vol,duree_vol, distance_vol, etat_vol, id_ville_provenir, id_ville_destiner, numero_avion) VALUES ('2', '12:59:35', '2020-05-20', '01:45:00' , '50', 'att', '1', '5', '2');
-
--- On insere les données pour Piloter
-INSERT INTO PILOTER (id_pilote, numero_vol) VALUES ('1', '1');
-INSERT INTO PILOTER (id_pilote, numero_vol) VALUES ('1', '2');
-INSERT INTO PILOTER (id_pilote, numero_vol) VALUES ('2', '1');
-INSERT INTO PILOTER (id_pilote, numero_vol) VALUES ('3', '2');
-
--- On insere les données pour Affecter
-INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES ('1', '1');
-INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES ('2', '2');
-INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES ('1', '2');
+INSERT INTO AVION (numero_avion, code_modele_avion) VALUES (1, 'A380');
+INSERT INTO AVION (numero_avion, code_modele_avion) VALUES (2, 'A380');
 
 -- On insere les données pour Zone
-INSERT INTO ZONE (id_zone, nom_zone) VALUES ('1', 'Avant');
-INSERT INTO ZONE (id_zone, nom_zone) VALUES ('2', 'Centre');
-INSERT INTO ZONE (id_zone, nom_zone) VALUES ('3', 'Arriere');
+INSERT INTO ZONE (id_zone, nom_zone) VALUES (1, 'Avant');
+INSERT INTO ZONE (id_zone, nom_zone) VALUES (2, 'Centre');
+INSERT INTO ZONE (id_zone, nom_zone) VALUES (3, 'Arriere');
 
 -- On insere les données pour Classe
-INSERT INTO CLASSE (id_classe, nom_classe) VALUES ('1', 'Affaire');
-INSERT INTO CLASSE (id_classe, nom_classe) VALUES ('2', 'Economique');
-INSERT INTO CLASSE (id_classe, nom_classe) VALUES ('3', '1e Classe');
+INSERT INTO CLASSE (id_classe, nom_classe) VALUES (1, 'Affaire');
+INSERT INTO CLASSE (id_classe, nom_classe) VALUES (2, 'Economique');
+INSERT INTO CLASSE (id_classe, nom_classe) VALUES (3, '1e Classe');
 
 -- On insere les données pour Place
-INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES ('45', '1', '2', '3');
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (1, 1, 1, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (2, 1, 1, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (3, 1, 1, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (4, 1, 1, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (5, 1, 1, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (6, 1, 2, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (7, 1, 2, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (8, 1, 2, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (9, 1, 2, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (10, 1, 2, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (11, 1, 3, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (12, 1, 3, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (13, 1, 3, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (14, 1, 3, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (15, 1, 3, 1);
+
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (1, 2, 1, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (2, 2, 1, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (3, 2, 1, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (4, 2, 1, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (5, 2, 1, 1);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (6, 2, 2, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (7, 2, 2, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (8, 2, 2, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (9, 2, 2, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (10, 2, 2, 3);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (11, 2, 3, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (12, 2, 3, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (13, 2, 3, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (14, 2, 3, 2);
+INSERT INTO PLACE (numero_place, numero_avion, id_zone, id_classe) VALUES (15, 2, 3, 2);
+
+-- On insere les données pour Vol
+INSERT INTO VOL (numero_vol, horaire_vol, date_vol,duree_vol, distance_vol, etat_vol, id_ville_provenir, id_ville_destiner, numero_avion) VALUES (1, '15:00:00', '2020-05-15', '01:45:00' , 50, 'att', 1, 4, 1);
+INSERT INTO VOL (numero_vol, horaire_vol, date_vol,duree_vol, distance_vol, etat_vol, id_ville_provenir, id_ville_destiner, numero_avion) VALUES (2, '22:00:00', '2020-05-15', '01:45:00' , 50, 'att', 1, 4, 2);
+
+-- On insere les données pour Piloter
+INSERT INTO PILOTER (id_pilote, numero_vol) VALUES (1, 1);
+INSERT INTO PILOTER (id_pilote, numero_vol) VALUES (1, 2);
+INSERT INTO PILOTER (id_pilote, numero_vol) VALUES (2, 1);
+INSERT INTO PILOTER (id_pilote, numero_vol) VALUES (3, 2);
+
+-- On insere les données pour Affecter
+INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES (1, 1);
+INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES (2, 2);
+INSERT INTO AFFECTER (id_hotesse, numero_vol) VALUES (1, 2);
+
+-- On insere les données pour Client
+INSERT INTO CLIENT (id_client, nom_client, prenom_client, numeroRue_client, rue_client, code_postal_client, ville_client, pays_client, numeropassport_client) VALUES (1, 'ZZ' , 'Z', 10, 'Real', 13756, 'Grenoble', 'France', '1215415121');
+INSERT INTO CLIENT (id_client, nom_client, prenom_client, numeroRue_client, rue_client, code_postal_client, ville_client, pays_client, numeropassport_client) VALUES (2, 'CR' , 'R', 7, 'Juve', 38645, 'Fontaine', 'France', '2345678998');
+INSERT INTO CLIENT (id_client, nom_client, prenom_client, numeroRue_client, rue_client, code_postal_client, ville_client, pays_client, numeropassport_client) VALUES (3, 'KB' , 'K', 10, 'Lyon', 69200, 'La Duche', 'France', '3456789123');
+-- On insere les données pour Reservation
+INSERT INTO RESERVATION (id_reservation, date_reservation, id_client) VALUES (1, '2020-03-04', 1);
+INSERT INTO RESERVATION (id_reservation, date_reservation, id_client) VALUES (2, '2020-04-05', 2);
+INSERT INTO RESERVATION (id_reservation, date_reservation, id_client) VALUES (3, '2020-05-06', 3);
 
 -- On insere les données pour Reserve
-INSERT INTO RESERVE (numero_place, numero_vol, id_reservation, prixplace_reserve) VALUES ('45', '2', '1', '12.5');
+INSERT INTO RESERVE (numero_place, numero_vol, id_reservation, prixplace_reserve) VALUES (15, 1, 1, 50.0);
+INSERT INTO RESERVE (numero_place, numero_vol, id_reservation, prixplace_reserve) VALUES (14, 1, 2, 40.0);
+INSERT INTO RESERVE (numero_place, numero_vol, id_reservation, prixplace_reserve) VALUES (13, 1, 3, 30.0);
+
+-- Procedure stockée pour l'affichage des commandes clients
+CREATE Procedure AFFICHAGE_COMMANDE_CLIENT () 
+SELECT  R.id_reservation,RESERVATION.date_reservation,R.numero_vol, V.numero_avion, A.code_modele_avion,Vd.nom_ville nom_ville_dep ,V.date_vol, V.horaire_vol,V.duree_vol,Va.nom_ville nom_ville_arr,R.numero_place, R.prixplace_reserve, V.etat_vol, RESERVATION.id_client  
+FROM RESERVE R
+JOIN RESERVATION ON R.id_reservation=RESERVATION.id_reservation  
+JOIN VOL V ON R.numero_vol=V.numero_vol  
+JOIN AVION A ON A.numero_avion=V.numero_avion  
+JOIN VILLE Vd ON V.id_ville_provenir=Vd.id_ville  
+JOIN VILLE Va ON V.id_ville_destiner=Va.id_ville  ;
+
