@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+
+import projetBD.Identifiant;
+
 import java.sql.*;
 	
 public class GestionPlanificationVol {
@@ -230,9 +233,10 @@ public class GestionPlanificationVol {
 			String VilleDepart=Saisi.get(5);
 			String VilleArrivee=Saisi.get(6);
 			int idAvion=Integer.parseInt(Saisi.get(7));
+			float prixBase=Float.parseFloat(Saisi.get(7));
 			int idVDep=-1;
 			int idVArr=-1;
-			int idVol=nouvelIDVol(conn)+1;
+			int idVol=nouvelIDVol(conn);
 			
 			idVDep=getIdVille(VilleDepart,conn);
 			idVArr=getIdVille(VilleArrivee,conn);
@@ -241,11 +245,12 @@ public class GestionPlanificationVol {
 					if(avionEstDisponible(idAvion,DateDep,HoraireDep,DureeVol,conn)) {
 						if(verifDistanceVol(Distance,idAvion,conn)) {
 							if(idVDep!=-1 || idVArr!=-1) {
-								String sqlRequest = "INSERT INTO VOL (numero_vol,horaire_vol,date_vol,duree_vol, distance_vol, etat_vol, id_ville_provenir, id_ville_destiner, numero_avion) VALUES";
-								sqlRequest+="('"+idVol+"','"+HoraireDep+"','"+DateDep+"','"+DureeVol+"','"+Distance+"','"+Etat+"','"+idVDep+"','"+idVArr+"','"+idAvion+"')";
+								String sqlRequest = "INSERT INTO VOL (numero_vol,horaire_vol,date_vol,duree_vol, distance_vol, etat_vol, prix_base_vol ,id_ville_provenir, id_ville_destiner, numero_avion) VALUES";
+								sqlRequest+="('"+idVol+"','"+HoraireDep+"','"+DateDep+"','"+DureeVol+"','"+Distance+"','"+Etat+"','"+prixBase+"','"+idVDep+"','"+idVArr+"','"+idAvion+"')";
 								try{
 							    	Statement statement = conn.createStatement();
 							    	statement.executeUpdate(sqlRequest);
+							    	statement.close();
 								}catch(Exception e) {
 									e.printStackTrace();
 								}
