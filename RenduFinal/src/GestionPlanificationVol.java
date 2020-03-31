@@ -245,14 +245,20 @@ public class GestionPlanificationVol {
 					if(avionEstDisponible(idAvion,DateDep,HoraireDep,DureeVol,conn)) {
 						if(verifDistanceVol(Distance,idAvion,conn)) {
 							if(idVDep!=-1 || idVArr!=-1) {
-								String sqlRequest = "INSERT INTO VOL (numero_vol,horaire_vol,date_vol,duree_vol, distance_vol, etat_vol, prix_base_vol ,id_ville_provenir, id_ville_destiner, numero_avion) VALUES";
-								sqlRequest+="('"+idVol+"','"+HoraireDep+"','"+DateDep+"','"+DureeVol+"','"+Distance+"','"+Etat+"','"+prixBase+"','"+idVDep+"','"+idVArr+"','"+idAvion+"')";
-								try{
-							    	Statement statement = conn.createStatement();
-							    	statement.executeUpdate(sqlRequest);
-							    	statement.close();
-								}catch(Exception e) {
-									e.printStackTrace();
+								if(prixBase>0) {
+									String sqlRequest = "INSERT INTO VOL (numero_vol,horaire_vol,date_vol,duree_vol, distance_vol, etat_vol, prix_base_vol ,id_ville_provenir, id_ville_destiner, numero_avion) VALUES";
+									sqlRequest+="('"+idVol+"','"+HoraireDep+"','"+DateDep+"','"+DureeVol+"','"+Distance+"','"+Etat+"','"+prixBase+"','"+idVDep+"','"+idVArr+"','"+idAvion+"')";
+									try{
+								    	Statement statement = conn.createStatement();
+								    	statement.executeUpdate(sqlRequest);
+								    	statement.close();
+									}catch(Exception e) {
+										e.printStackTrace();
+									}
+								}else {
+									aReussi=false;
+									System.out.println("Erreur sur la saisi nous n'avons pas pu créer le vol :");
+									System.out.println("le prix de base ne peux pas être négatif ou nul");
 								}
 							}else {
 								aReussi=false;
