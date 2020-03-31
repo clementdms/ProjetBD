@@ -285,6 +285,9 @@ public class GestionReservation {
 				System.out.println("*------------------------------*");
 		        if(LectureClavier.lireChaine("\t-") == "o") {
 		        	choixFidelite = true;
+				statement.execute("UPDATE CLIENT"
+						+ "SET nbFideliteUtilise_client = " + nbFidelite + "+ (SELECT nbFideliteUtilise_client FROM CLIENT WHERE id_client = " + idClient + ")"
+						+ "WHERE id_client = " + idClient + "");
 		        }
 		        else {
 		        	choixFidelite = false;
