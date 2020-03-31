@@ -1,5 +1,7 @@
-﻿-- Base de donnée Projet BD
+-- Base de donnée Projet BD
 -- Auteur : De Lemos Almeida Pierre, Dumas Clément, Meziane Farid, Diallo Mohamed Saliou
+
+DROP PROCEDURE IF EXISTS AFFICHAGE_COMMANDE_CLIENT;
 DROP TABLE IF EXISTS RESERVE;
 DROP TABLE IF EXISTS PLACE;
 DROP TABLE IF EXISTS CLASSE;
