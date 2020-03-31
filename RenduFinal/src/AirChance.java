@@ -44,7 +44,7 @@ public class AirChance {
 					GestionPlanificationVol.SupprimerVol(conn);
 					break;
 				case 4:
-					
+					GestionPlanificationVol.TerminaisonVol(conn);
 					break;
 				case 5:
 					GestionPlanificationVol.Ajout_Suppr_Personnel(conn);
